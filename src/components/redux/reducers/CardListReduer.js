@@ -17,14 +17,33 @@ const initialState = {
 
 const CardListReduer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_CARDLIST':
+        case 'FETCH_CARDLIST_BEGIN':
+            console.log('FETCH_CARDLIST_BEGIN')            
             return {
-                cards: state.cards
+                ...state,
+                fetchPending: true,
+                fetchError: null,
+            }
+        case 'FETCH_CARDLIST_SUCCESS':
+            console.log('FETCH_CARDLIST_SUCCESS')
+            console.log(state)
+            console.log(action)
+            return {
+                ...state,
+                cards: action.data.cards,
+                fetchPending: false,
+            }
+        case 'FETCH_CARDLIST_FAILURE':         
+            console.log('FETCH_CARDLIST_FAILURE')   
+            return {
+                ...state,
+                fetchPending: false,
+                fetchError: action.data.error,
             }
         default:
-            break        
+            console.log('DEFAULT')
+            return state
     }
-    return state
 }
 
 export default CardListReduer

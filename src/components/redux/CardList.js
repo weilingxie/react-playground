@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from './Card'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { GetCardList } from './actions/CardActions'
+import fetchCardList from './reducers/fetchCardList'
 
-const CardList = ({ cards }) => {
+const CardList = ({ cards, fetchCardList }) => {
+
+    useEffect(async ()=>{
+        await fetchCardList();        
+        console.log(cards)
+    }, [])
+
     return (
-        <div className="container">
+        <div className="card-container container">
             <h1>Redux with Thunk</h1>
             <hr />
             <div className="row">
-                {cards.map(card => (
+                {cards&&cards.map(card => (
                     <Card key={card.title} title = {card.title} urlToImage={card.urlToImage} />
                 ))}
             </div>
@@ -27,11 +33,13 @@ CardList.propTypes = {
 }
 
 const mapStateToProps = (state) => { 
+    console.log('mapStateToProps')
+    console.log(state.CardListReducer.cards)
     return { 
-        cards : state.cards 
+        cards : state.CardListReducer.cards
     }
 }
-const mapDispatchToProps = (dispatch) => bindActionCreators({ GetCardList }, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchCardList }, dispatch)
 
 const ConnectedCardList = connect(mapStateToProps, mapDispatchToProps)(CardList);
 
