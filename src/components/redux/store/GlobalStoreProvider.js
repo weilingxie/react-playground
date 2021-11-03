@@ -4,23 +4,6 @@ import { Provider } from 'react-redux'
 import CardListReducer from '../reducers/CardListReduer'
 import fetchCardList from '../reducers/fetchCardList'
 
-const initialState = {
-    cards: [
-        {
-            title:'title1', 
-            urlToImage:'https://picsum.photos/id/237/200/300'
-        },
-        {
-            title:'title2', 
-            urlToImage:'https://picsum.photos/id/238/200/300'
-        },
-        {
-            title:'title3', 
-            urlToImage:'https://picsum.photos/id/239/200/300'
-        },
-    ]
-}
-
 const GlobalStore = createStore(combineReducers({ 
     fetchCardList, 
     CardListReducer 

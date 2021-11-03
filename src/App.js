@@ -7,10 +7,10 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <GlobalStoreProvider>
-        <Navbar />
-        <br />
+      <GlobalStoreProvider>        
         <BrowserRouter>
+          <Navbar />
+          <br />
           <Switch>
             <Route path='/redux'>
               <CardList />

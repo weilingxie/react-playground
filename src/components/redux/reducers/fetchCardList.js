@@ -1,4 +1,5 @@
 const unique = (arr) => {
+    console.log(arr)
     let result = []
     for (let i = 0; i < arr.length; i++){
         if (result.indexOf(arr[i]) === -1){
@@ -9,9 +10,7 @@ const unique = (arr) => {
 }
 
 const fetchCardList = () => {
-    const url = 'https://newsapi.org/v2/everything?q=tesla&from=2021-09-18&sortBy=publishedAt&apiKey=2feccb605e614978a2d3865075b01e0c'
-
-
+    const url = 'https://newsapi.org/v2/everything?q=tesla&from=2021-11-03&sortBy=publishedAt&apiKey=2feccb605e614978a2d3865075b01e0c'
 
     return (dispatch) => {
         dispatch({
@@ -24,13 +23,16 @@ const fetchCardList = () => {
                 const data = await response.json()
                 console.log(`response:: `)
                 
-                var uniqueCards = unique(data.articles);
-                console.log(uniqueCards)
-
-                dispatch({
-                    type: 'FETCH_CARDLIST_SUCCESS',
-                    data: { cards: uniqueCards }
-                })
+                if(data.articles && typeof(data.articles) === 'object' ){
+                    const uniqueCards = unique(data.articles)
+                    const validCards = uniqueCards.filter(c => c.urlToImage)
+                    console.log(validCards)
+                    dispatch({
+                        type: 'FETCH_CARDLIST_SUCCESS',
+                        data: { cards: validCards }
+                    })
+                }                
+                
                 resolve(data)
             } catch(e){
                 dispatch({
