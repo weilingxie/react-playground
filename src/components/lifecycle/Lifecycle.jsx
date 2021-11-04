@@ -16,6 +16,10 @@ class Lifecycle extends React.Component {
     })
   }
 
+  forceUpdate() {
+    console.log('forceUpdate')
+  }
+
   componentDidMount() {
     console.log('componentDidMount')
   }
@@ -38,7 +42,14 @@ class Lifecycle extends React.Component {
     return (
       <div>
         <h1>{this.state.count}</h1>
-        <button onClick={this.increaseCount}>Increase</button>
+        <button className="btn btn-primary" onClick={this.increaseCount}>
+          Increase
+        </button>
+        <br />
+        <br />
+        <button className="btn btn-info" onClick={this.forceUpdate}>
+          Force Update
+        </button>
       </div>
     )
   }

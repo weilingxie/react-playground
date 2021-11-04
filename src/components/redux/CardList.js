@@ -6,9 +6,12 @@ import { connect } from 'react-redux'
 import fetchCardList from './reducers/fetchCardList'
 
 const CardList = ({ cards, fetchCardList }) => {
-  useEffect(async () => {
-    await fetchCardList()
-  }, [])
+  useEffect(() => {
+    async function fetchData() {
+      await fetchCardList()
+    }
+    fetchData()
+  }, [fetchCardList])
 
   return (
     <div>
